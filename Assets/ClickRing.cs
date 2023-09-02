@@ -10,6 +10,8 @@ public class ClickRing : MonoBehaviour
     public AudioClip ExplosionSFX;
     List<GameObject> Boxes;
 
+    
+
     // Start is called before the first frame update
     void Start()
     {
@@ -36,12 +38,16 @@ public class ClickRing : MonoBehaviour
             Time.timeScale += 0.05f;
             Time.fixedDeltaTime = this.fixedDeltaTime * Time.timeScale;
         }
+
+        
     }
 
     void OnMouseDown()
     {
         Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         mousePosition.z = 0;
+        Debug.Log("" + mousePosition.x + " " + mousePosition.y);
+
         Explosion(mousePosition);
     }
 
@@ -55,14 +61,9 @@ public class ClickRing : MonoBehaviour
             Time.fixedDeltaTime = this.fixedDeltaTime * Time.timeScale;
             GlobalTimer = 0.0f;
             parent.StartSonarRing(Origin, 100.0f);
-            foreach (GameObject box in Boxes)
-            {
-                Debug.Log("Sending Sonar Ring");
-                Vector3 Direction = box.transform.localPosition - Origin;
-                float Magnitude = Direction.magnitude;
-                Direction.Normalize();
-                box.GetComponent<Rigidbody2D>().AddForce(Direction * (500.0f / Magnitude));
-            }
+            GameObject ExplosionProcessor = new GameObject();
+            ExplosionProcessor.AddComponent<ProcessExplosion>().Initialize(Boxes, Origin);
+
         }
     }
 }
