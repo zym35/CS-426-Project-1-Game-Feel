@@ -5,14 +5,12 @@ using UnityEngine;
 
 public class UIManager : MonoBehaviour
 {
-=======
     public static UIManager Instance;
     
     public bool isGameRunning;
     public GameObject pauseMenu;
     public PaletteScriptableObject palette;
     public Color backgroundColor, squareColor, circleColor, clickColor;
-=======
     public SpriteRenderer background;
 
     private void Awake()
@@ -23,14 +21,12 @@ public class UIManager : MonoBehaviour
     private void Start()
     {
         isGameRunning = true;
-=======
         pauseMenu.SetActive(false);
         ChangeColor(0);
     }
 
     public void ChangeColor(int i)
     {
-=======
         Debug.Log("Change color");
         
         backgroundColor = palette.backgroundColors[i];

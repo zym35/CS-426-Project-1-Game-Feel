@@ -8,12 +8,11 @@ public class ProcessExplosion : MonoBehaviour
     private List<GameObject> Boxes;
     private List<GameObject> ToRemove;
     private Vector3 Origin;
-    float Timer;
+    float Timer = 0;
 
     // Start is called before the first frame update
     void Start()
     {
-        Timer = 0;
     }
 
     // Update is called once per frame
@@ -33,7 +32,7 @@ public class ProcessExplosion : MonoBehaviour
                 Vector3 Direction = box.transform.localPosition - Origin;
                 float Magnitude = Direction.magnitude;
                 Direction.Normalize();
-                box.GetComponent<Rigidbody2D>().AddForce(Direction * (500.0f / Magnitude));
+                box.GetComponent<Rigidbody2D>().AddForce(Direction * 300.0f * (1 / Time.timeScale) / Mathf.Max(Magnitude, 0.6f));
             }
         }
 
