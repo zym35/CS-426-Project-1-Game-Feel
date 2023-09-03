@@ -1,9 +1,14 @@
+
+=======
 using System;
 using UnityEngine;
 
 public class ExplosiveObject : MonoBehaviour
 {
     public bool isCircle;
+    private void OnCollisionEnter2D(Collision2D other)
+    {
+=======
 
     private void Start()
     {
@@ -20,6 +25,7 @@ public class ExplosiveObject : MonoBehaviour
             //Explode code
         }
     }
+=======
 
     public void SetColor(Color c)
     {
