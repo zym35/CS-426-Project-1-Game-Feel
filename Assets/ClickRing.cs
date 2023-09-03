@@ -21,14 +21,6 @@ public class ClickRing : MonoBehaviour
         GlobalTimer = 0.0f;
         this.fixedDeltaTime = Time.fixedDeltaTime;
         audioData = GetComponent<AudioSource>();
-        
-        // foreach (Transform child in GameObject.Find("MovableObjects").transform)
-        // {
-        //     if (null == child)
-        //         continue;
-        //     
-        //     Physics2D.IgnoreCollision(child.gameObject.GetComponent<Collider2D>(), GetComponent<Collider2D>());
-        // }
     }
 
     // Update is called once per frame
