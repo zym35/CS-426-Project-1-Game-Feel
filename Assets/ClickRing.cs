@@ -8,25 +8,19 @@ public class ClickRing : MonoBehaviour
     private float fixedDeltaTime;
     AudioSource audioData;
     public AudioClip ExplosionSFX;
-    List<GameObject> Boxes;
+    List<GameObject> Boxes = new List<GameObject>();
 
+    public void AddToList(GameObject obj)
+    {
+        Boxes.Add(obj);
+    }
     
-
     // Start is called before the first frame update
     void Start()
     {
         GlobalTimer = 0.0f;
         this.fixedDeltaTime = Time.fixedDeltaTime;
         audioData = GetComponent<AudioSource>();
-
-        Boxes = new List<GameObject>();
-        foreach (Transform child in GameObject.Find("MovableObjects").transform)
-        {
-            if (null == child)
-                continue;
-            Boxes.Add(child.gameObject);
-            Physics2D.IgnoreCollision(child.gameObject.GetComponent<BoxCollider2D>(), GetComponent<BoxCollider2D>());
-        }
     }
 
     // Update is called once per frame
