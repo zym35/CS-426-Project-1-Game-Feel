@@ -5,10 +5,18 @@ using UnityEngine;
 
 public class UIManager : MonoBehaviour
 {
+    public static UIManager Instance;
+    
     public bool isGameRunning;
     public GameObject pauseMenu;
     public PaletteScriptableObject palette;
     public Color backgroundColor, squareColor, circleColor, clickColor;
+    public SpriteRenderer background;
+
+    private void Awake()
+    {
+        Instance = this;
+    }
 
     private void Start()
     {
@@ -19,6 +27,8 @@ public class UIManager : MonoBehaviour
 
     public void ChangeColor(int i)
     {
+        Debug.Log("Change color");
+        
         backgroundColor = palette.backgroundColors[i];
         squareColor = palette.squareColors[i];
         circleColor = palette.circleColors[i];
@@ -28,6 +38,9 @@ public class UIManager : MonoBehaviour
         {
             obj.SetColor(obj.isCircle ? circleColor : squareColor);
         }
+
+        background.material.color = backgroundColor;
+        background.material.SetColor("_RingColor", clickColor);
     }
 
     private void Update()
