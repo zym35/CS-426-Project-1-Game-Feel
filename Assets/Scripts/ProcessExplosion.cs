@@ -19,13 +19,15 @@ public class ProcessExplosion : MonoBehaviour
     void Update()
     {
         Timer += Time.deltaTime;
-        if(Timer >= 2.0f)
+        if(Timer >= 2f)
         {
-            Object.Destroy(this.gameObject);
+            Destroy(gameObject);
+            return;
         }
         ToRemove = new List<GameObject>();
         foreach (GameObject box in Boxes)
         {
+            if (box == null) continue;
             if(Vector3.Distance(box.transform.localPosition, Origin) <= Mathf.Min(2.0f, Timer * 3.0f))
             {
                 ToRemove.Add(box);

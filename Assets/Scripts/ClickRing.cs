@@ -14,6 +14,11 @@ public class ClickRing : MonoBehaviour
     {
         Boxes.Add(obj);
     }
+
+    public void RemoveFromList(GameObject obj)
+    {
+        Boxes.Remove(obj);
+    }
     
     // Start is called before the first frame update
     void Start()
@@ -27,13 +32,11 @@ public class ClickRing : MonoBehaviour
     void Update()
     {
         GlobalTimer += Time.deltaTime;
-        if(GlobalTimer >= 0.2f && Time.timeScale < 1.0f)
+        if(UIManager.Instance.enableSlowMo && GlobalTimer >= 0.04f && Time.timeScale < 1.0f)
         {
-            Time.timeScale += 0.05f;
+            Time.timeScale += 0.2f;
             Time.fixedDeltaTime = this.fixedDeltaTime * Time.timeScale;
         }
-
-        
     }
 
     void OnMouseDown()
@@ -51,9 +54,13 @@ public class ClickRing : MonoBehaviour
         if (parent)
         {
             audioData.PlayOneShot(ExplosionSFX, 0.7f);
-            Time.timeScale = 0.2f;
-            Time.fixedDeltaTime = this.fixedDeltaTime * Time.timeScale;
-            GlobalTimer = 0.0f;
+            if (UIManager.Instance.enableSlowMo)
+            {
+                Time.timeScale = 0.15f;
+                Time.fixedDeltaTime = this.fixedDeltaTime * Time.timeScale;
+                GlobalTimer = 0.0f;
+            }
+            
             parent.StartSonarRing(Origin, 100.0f);
             GameObject ExplosionProcessor = new GameObject();
             ExplosionProcessor.AddComponent<ProcessExplosion>().Initialize(Boxes, Origin);

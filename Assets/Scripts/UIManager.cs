@@ -13,9 +13,37 @@ public class UIManager : MonoBehaviour
     public Color backgroundColor, squareColor, circleColor, clickColor;
     public SpriteRenderer background;
 
+    public bool enableTrail = true, enableSlowMo = true, enableAudio = true;
+
+    public void ToggleTrail()
+    {
+        enableTrail = !enableTrail;
+        foreach (var a in FindObjectsOfType<TrailRenderer>())
+        {
+            a.enabled = enableTrail;
+        }
+    }
+
+    public void ToggleSlowMo()
+    {
+        enableSlowMo = !enableSlowMo;
+    }
+
+    public void ToggleAudio()
+    {
+        enableAudio = !enableAudio;
+        foreach (var a in FindObjectsOfType<AudioSource>())
+        {
+            a.enabled = enableAudio;
+        }
+    }
+
     private void Awake()
     {
         Instance = this;
+        ToggleTrail();
+        ToggleAudio();
+        ToggleSlowMo();
     }
 
     private void Start()
@@ -23,6 +51,7 @@ public class UIManager : MonoBehaviour
         isGameRunning = true;
         pauseMenu.SetActive(false);
         ChangeColor(0);
+        
     }
 
     public void ChangeColor(int i)
@@ -45,19 +74,17 @@ public class UIManager : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Escape))
+        if (Input.GetKeyDown(KeyCode.Tab))
         {
             if (isGameRunning)
             {
                 isGameRunning = false;
-                Time.timeScale = 0;
                 pauseMenu.SetActive(false);
                 pauseMenu.SetActive(true);
             }
             else
             {
                 isGameRunning = true;
-                Time.timeScale = 1;
                 pauseMenu.SetActive(true);
                 pauseMenu.SetActive(false);
             }
